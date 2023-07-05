@@ -3,17 +3,22 @@ package jp.bayastea.fivesecond
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.widget.Button
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.core.graphics.toColor
 import jp.bayastea.fivesecond.ui.theme.FivesecondTheme
 import java.text.SimpleDateFormat
 import java.util.*
@@ -57,15 +62,29 @@ fun Time() {
     }
 
     Column() {
+
         Text(text = dataFormat.format(time.value))
-        Button(onClick = {
-            handler.post(timer) // .postでrunnableを送る？？
-        }) {
-            Text(text = "Start")
+
+        Surface(color = Color(0xfff0f8ff)) {
+            Button(
+                onClick = {
+                    handler.post(timer) // .postでrunnableを送る？？
+                },
+                colors = ButtonDefaults.buttonColors( // ButtonColors型はこの形で使う。disableやcontentColorなども設定可能
+                    backgroundColor = Color(0xfff0f8ff)
+                ),
+            ) {
+                Text(text = "Start")
+            }
         }
-        Button(onClick = {
-            handler.removeCallbacks(timer) // TODO: 止まらないので要確認
-        }) {
+        Button(
+            onClick = {
+                handler.removeCallbacks(timer) // TODO: 止まらないので要確認 ,
+            },
+            colors = ButtonDefaults.buttonColors( // ButtonColors型はこの形で使う。disableやcontentColorなども設定可能
+                backgroundColor = Color(0xffffc0cb)
+            )
+        ) {
             Text("Stop")
         }
     }
